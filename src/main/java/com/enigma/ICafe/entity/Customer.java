@@ -1,19 +1,21 @@
 package com.enigma.ICafe.entity;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Length;
 
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 @Data
-@SuperBuilder
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "m_customer")
+@Entity
+@Table(name = "m_customer")
 public class Customer {
 
     @Id
@@ -43,5 +45,6 @@ public class Customer {
     private Boolean isMember;
 
     @OneToOne(targetEntity = UserCredential.class)
+    @JoinColumn(name = "user_credential_id")
     private UserCredential userCredential;
 }

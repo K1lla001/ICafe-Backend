@@ -2,15 +2,16 @@ package com.enigma.ICafe.entity;
 
 
 import com.enigma.ICafe.entity.constant.ERole;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.*;
+
 @Data
-@SuperBuilder
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "m_role")
@@ -21,7 +22,7 @@ public class Role {
     @GeneratedValue(generator = "system-uuid")
     private String id;
 
-    @Enumerated(value = EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     private ERole role;
 
 }

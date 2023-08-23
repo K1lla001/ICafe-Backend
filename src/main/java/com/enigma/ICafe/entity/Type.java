@@ -1,6 +1,7 @@
 package com.enigma.ICafe.entity;
 
 
+import com.enigma.ICafe.entity.constant.ECategory;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,29 +9,21 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-
 
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "m_user_credential")
-public class UserCredential {
+@AllArgsConstructor
+@Entity
+@Table(name = "m_type")
+public class Type {
 
     @Id
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @GeneratedValue(generator = "system-uuid")
     private String id;
 
-    @NotNull(message = "Email Can Not Be Empty")
-    @Column(name = "email", unique = true)
-    private String email;
+    @Enumerated(EnumType.STRING)
+    private ECategory category;
 
-    @NotNull(message = "Password Can Not Be Empty")
-    private String password;
-
-    @OneToOne
-    @JoinColumn(name = "role_id")
-    private Role role;
 }
