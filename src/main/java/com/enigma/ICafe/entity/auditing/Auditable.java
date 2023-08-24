@@ -1,5 +1,6 @@
 package com.enigma.ICafe.entity.auditing;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -23,6 +24,7 @@ public abstract class Auditable<U> {
 
     @CreatedDate
     @Column(name = "created_at", updatable = false)
+    @JsonFormat(pattern = "YYYY-MM-dd HH:mm")
     protected LocalDateTime creationDate;
 
     @LastModifiedBy
@@ -31,8 +33,6 @@ public abstract class Auditable<U> {
 
     @LastModifiedDate
     @Column(name = "update_at")
+    @JsonFormat(pattern = "YYYY-MM-dd HH:mm")
     protected  LocalDateTime updateDate;
-
-
-
 }

@@ -1,4 +1,4 @@
-package com.enigma.ICafe.dto.common;
+package com.enigma.ICafe.model.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

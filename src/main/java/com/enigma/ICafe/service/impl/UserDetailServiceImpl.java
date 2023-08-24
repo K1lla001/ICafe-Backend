@@ -21,7 +21,6 @@ import java.util.Set;
 public class UserDetailServiceImpl implements UserDetailsService {
 
     private final UserCredentialRepository userCredentialRepository;
-    private final RoleService roleService;
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         UserCredential userCredential = userCredentialRepository.findByEmail(email).orElseThrow(() ->

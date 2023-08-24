@@ -1,9 +1,9 @@
 package com.enigma.ICafe.controller;
 
-import com.enigma.ICafe.dto.common.CommonResponse;
-import com.enigma.ICafe.dto.request.AuthRequest;
-import com.enigma.ICafe.dto.response.LoginResponse;
-import com.enigma.ICafe.dto.response.RegisterResponse;
+import com.enigma.ICafe.model.common.CommonResponse;
+import com.enigma.ICafe.model.request.AuthRequest;
+import com.enigma.ICafe.model.response.LoginResponse;
+import com.enigma.ICafe.model.response.RegisterResponse;
 import com.enigma.ICafe.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,6 +21,17 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping(path = "/register")
+    public ResponseEntity<CommonResponse<RegisterResponse>> registerCustomer(@RequestBody AuthRequest request){
+        RegisterResponse registerResponse = authService.registerCustomer(request);
+
+        return ResponseEntity.ok(CommonResponse.<RegisterResponse>builder()
+                .statusCode(HttpStatus.CREATED.value())
+                .message("Successfully Create Customer!")
+                .data(registerResponse)
+                .build());
+    }
+
+    @PostMapping(path = "/register-admin")
     public ResponseEntity<CommonResponse<RegisterResponse>> registerAdmin(@RequestBody AuthRequest request){
         RegisterResponse registerResponse = authService.registerAdmin(request);
 

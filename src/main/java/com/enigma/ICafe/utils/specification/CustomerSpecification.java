@@ -1,6 +1,6 @@
-package com.enigma.ICafe.utils;
+package com.enigma.ICafe.utils.specification;
 
-import com.enigma.ICafe.dto.common.CustomerSearchDTO;
+import com.enigma.ICafe.model.dto.CustomerSearchDTO;
 import com.enigma.ICafe.entity.Customer;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -18,7 +18,7 @@ public class CustomerSpecification {
                 predicateList.add(firstName);
             }
             if(customerSearchDTO.getCustomerLastName() != null){
-                Predicate lastName = criteriaBuilder.like(criteriaBuilder.lower(root.get("lastName")), "%" + customerSearchDTO.getCustomerFirstName().toLowerCase() + "%");
+                Predicate lastName = criteriaBuilder.like(criteriaBuilder.lower(root.get("lastName")), "%" + customerSearchDTO.getCustomerLastName().toLowerCase() + "%");
                 predicateList.add(lastName);
             }
             Predicate[] predicates = predicateList.toArray(new Predicate[predicateList.size()]);

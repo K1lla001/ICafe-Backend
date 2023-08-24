@@ -1,32 +1,34 @@
 package com.enigma.ICafe.service.impl;
 
-import com.enigma.ICafe.dto.request.AuthRequest;
-import com.enigma.ICafe.dto.response.LoginResponse;
-import com.enigma.ICafe.dto.response.RegisterResponse;
-import com.enigma.ICafe.entity.Admin;
-import com.enigma.ICafe.entity.Role;
-import com.enigma.ICafe.entity.UserCredential;
-import com.enigma.ICafe.entity.UserDetailsImpl;
+import com.enigma.ICafe.model.request.AuthRequest;
+import com.enigma.ICafe.model.response.LoginResponse;
+import com.enigma.ICafe.model.response.RegisterResponse;
+import com.enigma.ICafe.entity.*;
 import com.enigma.ICafe.entity.constant.ERole;
 import com.enigma.ICafe.repository.UserCredentialRepository;
 import com.enigma.ICafe.security.JwtSecurityConfig;
 import com.enigma.ICafe.service.AdminService;
 import com.enigma.ICafe.service.AuthService;
+import com.enigma.ICafe.service.CustomerService;
 import com.enigma.ICafe.service.RoleService;
 import com.enigma.ICafe.utils.BcryptUtil;
+import com.enigma.ICafe.utils.ValidationUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -36,19 +38,22 @@ public class AuthServiceImpl implements AuthService {
     private final UserCredentialRepository userCredentialRepository;
     private final BcryptUtil bcryptUtil;
     private final AdminService adminService;
+    private final CustomerService customerService;
     private final RoleService roleService;
     private final JwtSecurityConfig jwtSecurityConfig;
     private final AuthenticationManager authenticationManager;
+    private final ValidationUtil validationUtil;
 
     @Override
     public RegisterResponse registerAdmin(AuthRequest request) {
+        validationUtil.validate(request);
         try {
             Role admin = roleService.getOrSave(ERole.ROLE_ADMIN);
             UserCredential userCredential = createUserCredential(request, admin);
 
             Admin currentAdmin = Admin.builder()
-                    .email(request.getEmail())
                     .fullName(defaultNameGenerator(request.getEmail()))
+                    .email(request.getEmail())
                     .userCredential(userCredential)
                     .build();
 
@@ -58,25 +63,68 @@ public class AuthServiceImpl implements AuthService {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "User Already Exist!");
         }
     }
+
+
+    @Override
+    public RegisterResponse registerCustomer(AuthRequest request) {
+        validationUtil.validate(request);
+        try {
+            Role customer = roleService.getOrSave(ERole.ROLE_CUSTOMER);
+            UserCredential userCredential = createUserCredential(request, customer);
+
+            Customer currentCustomer = Customer.builder()
+                    .firstName(request.getFirstName())
+                    .lastName(request.getLastName())
+                    .email(request.getEmail())
+                    .phoneNumber(request.getPhoneNumber())
+                    .isMember(false)
+                    .userCredential(userCredential)
+                    .build();
+
+            customerService.addCustomer(currentCustomer);
+            return RegisterResponse.builder()
+                    .email(currentCustomer.getEmail()).build();
+        }catch (DataIntegrityViolationException exception){
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "User Already Exist!");
+        }
+    }
+
     @Override
     public LoginResponse login(AuthRequest request) {
-        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                request.getEmail(), request.getPassword()
-        ));
-        SecurityContextHolder.getContext().setAuthentication(authenticate);
-        UserDetailsImpl user = (UserDetailsImpl) authenticate.getPrincipal();
-        List<String> roles = user.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
+        validationUtil.validate(request);
 
-        String currentRole = "";
-        if(!roles.isEmpty()) currentRole = roles.get(0);
+        Optional<UserCredential> userEmail = userCredentialRepository.findByEmail(request.getEmail());
+        if (userEmail.isEmpty() || !userEmail.get().getIsActive()) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
+                    "Account not active or incorrect Email! Have you registered your account?");
+        }
 
-        String jwtToken = jwtSecurityConfig.generateToken(user.getEmail());
-        return LoginResponse.builder()
-                .email(user.getEmail())
-                .role(currentRole)
-                .token(jwtToken)
-                .build();
+        try {
+            Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                    request.getEmail(), request.getPassword()
+            ));
+            SecurityContextHolder.getContext().setAuthentication(authenticate);
+            UserDetailsImpl user = (UserDetailsImpl) authenticate.getPrincipal();
+            List<String> roles = user.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
+
+            String currentRole = "";
+            if (!roles.isEmpty()) {
+                currentRole = roles.get(0);
+            }
+
+            String jwtToken = jwtSecurityConfig.generateToken(user.getEmail());
+            return LoginResponse.builder()
+                    .email(user.getEmail())
+                    .role(currentRole)
+                    .token(jwtToken)
+                    .build();
+        }catch (Exception exception){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Incorrect Email or Password!");
+        }
+
     }
+
+
 
     @Override
     public UserCredential createUserCredential(AuthRequest request, Role role) {
@@ -85,15 +133,16 @@ public class AuthServiceImpl implements AuthService {
                         .email(request.getEmail())
                         .password(bcryptUtil.hashPassword(request.getPassword()))
                         .role(role)
+                        .isActive(true)
                         .build()
         );
     }
 
     private String defaultNameGenerator(String fullName){
-        int currentAt = fullName.indexOf("@");
-        if(currentAt != -1){
-            return fullName.substring(0, currentAt);
-        }
-        return fullName;
+            int currentAt = fullName.indexOf("@");
+            if(currentAt != -1){
+                return fullName.substring(0, currentAt);
+            }
+            return fullName;
     }
 }

@@ -1,4 +1,4 @@
-package com.enigma.ICafe.dto.response;
+package com.enigma.ICafe.model.response;
 
 import lombok.Builder;
 import lombok.Data;
