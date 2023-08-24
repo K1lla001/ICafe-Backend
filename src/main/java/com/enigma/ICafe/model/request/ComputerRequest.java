@@ -4,11 +4,13 @@ package com.enigma.ICafe.dto.request;
 import com.enigma.ICafe.entity.Type;
 import lombok.Builder;
 import lombok.Data;
+import javax.validation.constraints.NotBlank;
 
 import javax.validation.constraints.NotNull;
 
 @Data
 @Builder
+@NotBlank
 public class ComputerRequest {
 
     @NotNull(message = "Computer Name Can Not Be Empty")
