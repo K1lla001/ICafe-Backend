@@ -1,7 +1,7 @@
 package com.enigma.ICafe.controller;
 
-import com.enigma.ICafe.dto.common.CommonResponse;
 import com.enigma.ICafe.dto.request.ComputerRequest;
+import com.enigma.ICafe.model.common.CommonResponse;
 import com.enigma.ICafe.service.ComputerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
