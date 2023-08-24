@@ -27,15 +27,18 @@ public class Computer extends Auditable<String> {
     private String name;
 
     @NotNull(message = "Computer Code Can Not Be Empty")
+    @Column(name = "pc_code", unique = true)
     private String code;
 
-    @ManyToOne
+    @OneToOne(targetEntity = Type.class)
+    @JoinColumn(name = "type_id")
     private Type type;
 
     @NotNull(message = "Status Can Not Be Empty")
     private Boolean status;
 
-    @OneToOne
+    @OneToOne(targetEntity = ComputerSpec.class)
+    @JoinColumn(name = "computer_spec_id")
     private ComputerSpec specification;
 
 

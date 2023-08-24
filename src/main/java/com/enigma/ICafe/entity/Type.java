@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Builder
@@ -24,6 +25,10 @@ public class Type {
     private String id;
 
     @Enumerated(EnumType.STRING)
+    @NotNull(message = "Category Can Not Be Empty")
     private ECategory category;
+
+    @NotNull(message = "Price Can Not Be Empty")
+    private Long price;
 
 }

@@ -11,4 +11,8 @@ public interface AdminService {
 
     Admin create(Admin admin);
 
+    Admin update(Admin admin);
+
+    String delete(String id);
+
 }
