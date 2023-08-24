@@ -14,7 +14,7 @@ public class TypeServiceImpl implements TypeService{
     private final TypeRepository typeRepository;
     @Override
     public Type getOrSave(ECategory category) {
-        return typeRepository.findByType(category).orElseGet(() ->
+        return typeRepository.findByCategory(category).orElseGet(() ->
                 typeRepository.saveAndFlush(Type.builder().category(category).build()));
     }
 }

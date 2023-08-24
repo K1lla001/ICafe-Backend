@@ -1,6 +1,7 @@
 package com.enigma.ICafe.dto.request;
 
 
+import com.enigma.ICafe.entity.Type;
 import lombok.Builder;
 import lombok.Data;
 
@@ -15,7 +16,7 @@ public class ComputerRequest {
 
 
     @NotNull(message = "Computer Type Can Not Be Empty")
-    private String type;
+    private String  type;
 
     @NotNull(message = "Processor Spec Can Not Be Empty")
     private String processor;
