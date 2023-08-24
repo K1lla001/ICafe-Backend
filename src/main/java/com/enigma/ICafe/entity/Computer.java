@@ -35,9 +35,7 @@ public class Computer extends Auditable<String> {
     @NotNull(message = "Status Can Not Be Empty")
     private Boolean status;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private ComputerSpec specification;
-
-
 
 }
