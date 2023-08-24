@@ -1,4 +1,4 @@
-package com.enigma.ICafe.model.common;
+package com.enigma.ICafe.model.dto;
 
 import lombok.*;
 

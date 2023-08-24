@@ -33,4 +33,6 @@ public class UserCredential {
     @OneToOne
     @JoinColumn(name = "role_id")
     private Role role;
+
+    private Boolean isActive;
 }

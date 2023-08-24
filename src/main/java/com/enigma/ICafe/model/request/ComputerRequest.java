@@ -1,12 +1,14 @@
-package com.enigma.ICafe.dto.request;
+package com.enigma.ICafe.model.request;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
+
 import javax.validation.constraints.NotBlank;
 
 @Data
 @Builder
 @NotBlank
+@NoArgsConstructor
+@AllArgsConstructor
 public class ComputerRequest {
     private String name;
     private String code;

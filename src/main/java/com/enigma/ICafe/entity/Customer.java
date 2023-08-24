@@ -1,5 +1,6 @@
 package com.enigma.ICafe.entity;
 
+import com.enigma.ICafe.entity.auditing.Auditable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +17,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @Entity
 @Table(name = "m_customer")
-public class Customer {
+public class Customer extends Auditable<String> {
 
     @Id
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
@@ -24,13 +25,9 @@ public class Customer {
     private String id;
 
     @Column(name = "first_name")
-    @NotNull(message = "First Name Can Not Be Empty")
-    @Length(min = 3)
     private String firstName;
 
     @Column(name = "last_name")
-    @NotNull(message = "Last Name Can Not Be Empty")
-    @Length(min = 3)
     private String lastName;
 
     @Column(name = "email", unique = true)
@@ -38,7 +35,6 @@ public class Customer {
     private String email;
 
     @Column(name = "phone_number", unique = true)
-    @NotNull(message = "Phone Number Can Not Be Empty")
     private String phoneNumber;
 
     @Column(name = "is_member")
@@ -47,4 +43,6 @@ public class Customer {
     @OneToOne(targetEntity = UserCredential.class)
     @JoinColumn(name = "user_credential_id")
     private UserCredential userCredential;
+
+    private Boolean isDeleted;
 }

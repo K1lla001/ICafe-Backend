@@ -1,8 +1,8 @@
 package com.enigma.ICafe.controller;
 
-import com.enigma.ICafe.dto.common.CommonResponse;
-import com.enigma.ICafe.dto.request.ComputerRequest;
-import com.enigma.ICafe.dto.response.ComputerResponse;
+import com.enigma.ICafe.model.common.CommonResponse;
+import com.enigma.ICafe.model.request.ComputerRequest;
+import com.enigma.ICafe.model.response.ComputerResponse;
 import com.enigma.ICafe.entity.Computer;
 import com.enigma.ICafe.service.ComputerService;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ public class ComputerController {
     @PostMapping
     public ResponseEntity<CommonResponse<ComputerResponse>> addComputer(@RequestBody ComputerRequest request){
         ComputerResponse computerResponse = computerService.addComputer(request);
-        return ResponseEntity.ok(
+        return ResponseEntity.status(HttpStatus.CREATED).body(
                 CommonResponse.<ComputerResponse>builder()
                         .statusCode(HttpStatus.CREATED.value())
                         .message("Successfully Create New Computer!")
@@ -32,7 +32,7 @@ public class ComputerController {
     }
 
     @GetMapping
-    public ResponseEntity<CommonResponse<List<Computer>>> getAll(){
+    public ResponseEntity<CommonResponse<?>> getAll(){
         List<Computer> computersData = computerService.getAll();
         return ResponseEntity.ok(CommonResponse.<List<Computer>>builder()
                         .statusCode(HttpStatus.OK.value())

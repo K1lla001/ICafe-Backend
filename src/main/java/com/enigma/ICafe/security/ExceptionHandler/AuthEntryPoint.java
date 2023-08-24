@@ -1,7 +1,6 @@
-package com.enigma.ICafe.security;
+package com.enigma.ICafe.security.ExceptionHandler;
 
-import com.enigma.ICafe.dto.common.CommonResponse;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.enigma.ICafe.model.common.CommonResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.AuthenticationException;

@@ -1,7 +1,7 @@
 package com.enigma.ICafe.service.impl;
 
-import com.enigma.ICafe.dto.request.ComputerRequest;
-import com.enigma.ICafe.dto.response.ComputerResponse;
+import com.enigma.ICafe.model.request.ComputerRequest;
+import com.enigma.ICafe.model.response.ComputerResponse;
 import com.enigma.ICafe.entity.Computer;
 import com.enigma.ICafe.entity.ComputerSpec;
 import com.enigma.ICafe.entity.Type;
@@ -60,7 +60,7 @@ public class ComputerServiceImpl implements ComputerService {
     }
 
     @Override
-    public Page getComputerPerPage(Pageable pageable) {
+    public Page<Computer> getComputerPerPage(Pageable pageable) {
         //TODO: Get Todo Perpage
         return null;
     }
