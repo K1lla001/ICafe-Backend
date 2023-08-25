@@ -1,4 +1,4 @@
-package com.enigma.ICafe.model.dto;
+package com.enigma.ICafe.model.common;
 
 import lombok.*;
 
@@ -8,7 +8,7 @@ import lombok.*;
 @Getter
 @Builder
 @Setter
-public class CustomerSearchDTO {
+public class CustomerSearch {
     private String customerFirstName;
     private String customerLastName;
 }

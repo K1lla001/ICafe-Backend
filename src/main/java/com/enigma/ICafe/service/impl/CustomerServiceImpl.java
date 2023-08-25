@@ -1,6 +1,6 @@
 package com.enigma.ICafe.service.impl;
 
-import com.enigma.ICafe.model.dto.CustomerSearchDTO;
+import com.enigma.ICafe.model.common.CustomerSearch;
 import com.enigma.ICafe.entity.Customer;
 import com.enigma.ICafe.model.request.CustomerRequest;
 import com.enigma.ICafe.model.response.CustomerResponse;
@@ -17,8 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -67,7 +65,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Page<CustomerResponse> getCustomerPerPage(Pageable pageable, CustomerSearchDTO customerDto) {
+    public Page<CustomerResponse> getCustomerPerPage(Pageable pageable, CustomerSearch customerDto) {
         Specification<Customer> customerSpecification = CustomerSpecification.getSpecification(customerDto);
         Page<Customer> customers = customerRepository.findAll(customerSpecification, pageable);
         return customers.map(this::responseGenerator);

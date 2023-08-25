@@ -1,9 +1,8 @@
 package com.enigma.ICafe.controller;
 
 import com.enigma.ICafe.model.common.CommonResponse;
-import com.enigma.ICafe.model.dto.CustomerSearchDTO;
+import com.enigma.ICafe.model.common.CustomerSearch;
 import com.enigma.ICafe.model.common.PagingResponse;
-import com.enigma.ICafe.entity.Customer;
 import com.enigma.ICafe.model.response.CustomerResponse;
 import com.enigma.ICafe.service.CustomerService;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +28,7 @@ public class CustomerController {
             @RequestParam(name = "size", defaultValue = "5", required = false) Integer size,
             @RequestParam(name = "firstName", required = false) String firstName,
             @RequestParam(name = "lastName", required = false) String lastName){
-        CustomerSearchDTO dataCustomer = CustomerSearchDTO.builder()
+        CustomerSearch dataCustomer = CustomerSearch.builder()
                 .customerFirstName(firstName)
                 .customerLastName(lastName)
                 .build();
