@@ -1,16 +1,16 @@
 package com.enigma.ICafe.entity;
 
 import com.enigma.ICafe.entity.auditing.Auditable;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Length;
 
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Builder
 @AllArgsConstructor
@@ -31,7 +31,6 @@ public class Customer extends Auditable<String> {
     private String lastName;
 
     @Column(name = "email", unique = true)
-    @NotNull(message = "Email Can Not Be Empty")
     private String email;
 
     @Column(name = "phone_number", unique = true)
@@ -40,9 +39,10 @@ public class Customer extends Auditable<String> {
     @Column(name = "is_member")
     private Boolean isMember;
 
+    @Column(name = "is_deleted")
+    private Boolean isDeleted;
+
     @OneToOne(targetEntity = UserCredential.class)
     @JoinColumn(name = "user_credential_id")
     private UserCredential userCredential;
-
-    private Boolean isDeleted;
 }

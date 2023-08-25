@@ -3,7 +3,7 @@ package com.enigma.ICafe.controller;
 import com.enigma.ICafe.model.common.CommonResponse;
 import com.enigma.ICafe.model.request.ComputerRequest;
 import com.enigma.ICafe.model.response.ComputerResponse;
-import com.enigma.ICafe.entity.Computer;
+import com.enigma.ICafe.entity.computer.Computer;
 import com.enigma.ICafe.service.ComputerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

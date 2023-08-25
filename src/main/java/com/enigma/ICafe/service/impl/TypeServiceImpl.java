@@ -1,6 +1,6 @@
 package com.enigma.ICafe.service.impl;
 
-import com.enigma.ICafe.entity.Type;
+import com.enigma.ICafe.entity.computer.Type;
 import com.enigma.ICafe.entity.constant.ECategory;
 import com.enigma.ICafe.repository.TypeRepository;
 import com.enigma.ICafe.service.TypeService;
@@ -18,7 +18,7 @@ public class TypeServiceImpl implements TypeService {
         return typeRepository.findByCategory(category).orElseGet(() ->
             typeRepository.saveAndFlush(Type.builder()
                     .category(category)
-                    .price(setPrice(category, 0L))
+
                     .build()));
     }
 

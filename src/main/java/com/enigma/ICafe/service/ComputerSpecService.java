@@ -1,6 +1,6 @@
 package com.enigma.ICafe.service;
 
-import com.enigma.ICafe.entity.ComputerSpec;
+import com.enigma.ICafe.entity.computer.ComputerSpec;
 
 public interface ComputerSpecService {
 
@@ -8,4 +8,6 @@ public interface ComputerSpecService {
 
     ComputerSpec updateSpec(ComputerSpec updateSpec);
 
+    class ProfilePictureService {
+    }
 }

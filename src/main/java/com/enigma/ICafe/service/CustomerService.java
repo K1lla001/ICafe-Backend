@@ -15,9 +15,9 @@ public interface CustomerService {
 
     CustomerResponse updateCustomer(CustomerRequest customer);
 
-    CustomerResponse findById(String id);
+    String findEmailById(String id);
 
-    List<CustomerResponse> findAll();
+    CustomerResponse findById(String id);
 
     Page<CustomerResponse> getCustomerPerPage(Pageable pageable, CustomerSearchDTO customer);
 

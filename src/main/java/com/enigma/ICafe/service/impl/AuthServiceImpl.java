@@ -14,15 +14,14 @@ import com.enigma.ICafe.service.RoleService;
 import com.enigma.ICafe.utils.BcryptUtil;
 import com.enigma.ICafe.utils.ValidationUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -32,6 +31,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 @Transactional(rollbackOn = Exception.class)
 public class AuthServiceImpl implements AuthService {
 
@@ -55,6 +55,7 @@ public class AuthServiceImpl implements AuthService {
                     .fullName(defaultNameGenerator(request.getEmail()))
                     .email(request.getEmail())
                     .userCredential(userCredential)
+
                     .build();
 
             adminService.create(currentAdmin);
@@ -63,7 +64,6 @@ public class AuthServiceImpl implements AuthService {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "User Already Exist!");
         }
     }
-
 
     @Override
     public RegisterResponse registerCustomer(AuthRequest request) {
@@ -92,17 +92,19 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public LoginResponse login(AuthRequest request) {
         validationUtil.validate(request);
+        log.info(request.toString());
 
         Optional<UserCredential> userEmail = userCredentialRepository.findByEmail(request.getEmail());
         if (userEmail.isEmpty() || !userEmail.get().getIsActive()) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
                     "Account not active or incorrect Email! Have you registered your account?");
         }
-
         try {
-            Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+            Authentication authenticate = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
                     request.getEmail(), request.getPassword()
             ));
+            log.info("INFO DARI LOGIN", authenticate.getPrincipal().toString());
             SecurityContextHolder.getContext().setAuthentication(authenticate);
             UserDetailsImpl user = (UserDetailsImpl) authenticate.getPrincipal();
             List<String> roles = user.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
@@ -123,8 +125,6 @@ public class AuthServiceImpl implements AuthService {
         }
 
     }
-
-
 
     @Override
     public UserCredential createUserCredential(AuthRequest request, Role role) {

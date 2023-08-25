@@ -61,11 +61,9 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<CustomerResponse> findAll() {
-        List<Customer> customers = customerRepository.findAll();
-        List<CustomerResponse> responses = new ArrayList<>();
-        customers.forEach(customer -> responses.add(responseGenerator(customer)));
-        return responses;
+    public String findEmailById(String id) {
+        Customer customer = customerRepository.findFirstByUserCredential_Id(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found!"));
+        return customer.getUserCredential().getEmail();
     }
 
     @Override

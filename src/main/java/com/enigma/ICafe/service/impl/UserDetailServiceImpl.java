@@ -4,7 +4,6 @@ import com.enigma.ICafe.entity.Role;
 import com.enigma.ICafe.entity.UserCredential;
 import com.enigma.ICafe.entity.UserDetailsImpl;
 import com.enigma.ICafe.repository.UserCredentialRepository;
-import com.enigma.ICafe.service.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor

@@ -2,7 +2,7 @@ package com.enigma.ICafe.service;
 
 import com.enigma.ICafe.model.request.ComputerRequest;
 import com.enigma.ICafe.model.response.ComputerResponse;
-import com.enigma.ICafe.entity.Computer;
+import com.enigma.ICafe.entity.computer.Computer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

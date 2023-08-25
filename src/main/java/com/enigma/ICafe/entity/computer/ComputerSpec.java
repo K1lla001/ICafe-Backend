@@ -1,10 +1,8 @@
-package com.enigma.ICafe.entity;
+package com.enigma.ICafe.entity.computer;
 
 import com.enigma.ICafe.entity.auditing.Auditable;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
@@ -13,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+
+@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -26,18 +26,10 @@ public class ComputerSpec extends Auditable<String> {
     @GeneratedValue(generator = "system-uuid")
     private String id;
 
-    @NotNull(message = "Processor Spec Can Not Be Empty")
     private String processor;
-    @NotNull(message = "RAM Spec Can Not Be Empty")
     private String ram;
-
-    @NotNull(message = "Monitor Spec Can Not Be Empty")
     private String monitor;
-
-    @NotNull(message = "SSD Spec Can Not Be Empty")
     private String ssd;
-
-    @NotNull(message = "VGA Spec Can Not Be Empty")
     private String vga;
 
 

@@ -1,6 +1,6 @@
 package com.enigma.ICafe.service.impl;
 
-import com.enigma.ICafe.entity.ComputerSpec;
+import com.enigma.ICafe.entity.computer.ComputerSpec;
 import com.enigma.ICafe.repository.ComputerSpecRepository;
 import com.enigma.ICafe.service.ComputerSpecService;
 import lombok.RequiredArgsConstructor;

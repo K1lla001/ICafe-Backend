@@ -1,6 +1,6 @@
 package com.enigma.ICafe.repository;
 
-import com.enigma.ICafe.entity.Type;
+import com.enigma.ICafe.entity.computer.Type;
 import com.enigma.ICafe.entity.constant.ECategory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

@@ -1,10 +1,8 @@
 package com.enigma.ICafe.entity;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -24,11 +22,9 @@ public class Admin {
     private String id;
 
     @Column(name = "email", unique = true)
-    @NotNull(message = "Email Can Not Be Empty")
     private String email;
 
     @Column(name = "full_name")
-    @NotNull(message = "full name Can Not Be Empty")
     private String fullName;
 
     @Column(name = "phone_number", unique = true)

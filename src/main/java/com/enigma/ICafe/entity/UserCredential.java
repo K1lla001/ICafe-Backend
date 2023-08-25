@@ -23,11 +23,9 @@ public class UserCredential {
     @GeneratedValue(generator = "system-uuid")
     private String id;
 
-    @NotNull(message = "Email Can Not Be Empty")
     @Column(name = "email", unique = true)
     private String email;
 
-    @NotNull(message = "Password Can Not Be Empty")
     private String password;
 
     @OneToOne
@@ -35,4 +33,8 @@ public class UserCredential {
     private Role role;
 
     private Boolean isActive;
+
+
+    @OneToOne(mappedBy = "user")
+    private ProfilePicture profilePicture;
 }

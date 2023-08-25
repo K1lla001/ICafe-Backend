@@ -2,9 +2,9 @@ package com.enigma.ICafe.service.impl;
 
 import com.enigma.ICafe.model.request.ComputerRequest;
 import com.enigma.ICafe.model.response.ComputerResponse;
-import com.enigma.ICafe.entity.Computer;
-import com.enigma.ICafe.entity.ComputerSpec;
-import com.enigma.ICafe.entity.Type;
+import com.enigma.ICafe.entity.computer.Computer;
+import com.enigma.ICafe.entity.computer.ComputerSpec;
+import com.enigma.ICafe.entity.computer.Type;
 import com.enigma.ICafe.entity.constant.ECategory;
 import com.enigma.ICafe.repository.ComputerRepository;
 import com.enigma.ICafe.service.ComputerService;
@@ -81,7 +81,7 @@ public class ComputerServiceImpl implements ComputerService {
                 .name(computer.getName())
                 .code(computer.getCode())
                 .category(String.valueOf(computer.getType().getCategory()))
-                .price(computer.getType().getPrice())
+                .prices(computer.getType().getTypePrices())
                 .processor(computer.getSpecification().getProcessor())
                 .ram(computer.getSpecification().getRam())
                 .monitor(computer.getSpecification().getMonitor())
