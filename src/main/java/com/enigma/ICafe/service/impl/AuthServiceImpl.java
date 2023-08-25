@@ -78,6 +78,7 @@ public class AuthServiceImpl implements AuthService {
                     .email(request.getEmail())
                     .phoneNumber(request.getPhoneNumber())
                     .isMember(false)
+                    .isDeleted(false)
                     .userCredential(userCredential)
                     .build();
 

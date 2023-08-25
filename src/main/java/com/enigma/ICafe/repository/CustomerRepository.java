@@ -9,5 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, String>, JpaSpecificationExecutor<Customer> {
-    Optional<Customer> findFirstByUserCredential_Id(String email);
+    Optional<Customer> findFirstByUserCredential_Email(String email);
 }

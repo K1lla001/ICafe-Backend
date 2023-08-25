@@ -13,6 +13,7 @@ public class ComputerRequest {
     private String name;
     private String code;
     private String category;
+    private String price;
     private String processor;
     private String ram;
     private String monitor;

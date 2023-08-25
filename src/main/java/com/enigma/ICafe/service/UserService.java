@@ -15,5 +15,5 @@ public interface UserService {
     Resource downloadProfilePicture(String imageId);
 
     FileResponse updateProfilePicture(MultipartFile multipartFile);
-    String deleteProfilePicture(String imageId);
+    void deleteProfilePicture(String imageId);
 }

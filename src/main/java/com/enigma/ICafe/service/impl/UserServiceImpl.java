@@ -77,8 +77,8 @@ public class UserServiceImpl implements UserService {
 
     }
     @Override
-    public String deleteProfilePicture(String imageId) {
-        return profilePictureService.deleteById(imageId);
+    public void deleteProfilePicture(String imageId) {
+        profilePictureService.deleteById(imageId);
 
     }
 

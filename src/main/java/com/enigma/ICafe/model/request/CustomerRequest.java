@@ -1,10 +1,14 @@
 package com.enigma.ICafe.model.request;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.lang.Nullable;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class CustomerRequest {
 
@@ -13,5 +17,6 @@ public class CustomerRequest {
     private String lastName;
     private String phoneNumber;
     private @Nullable Boolean isMember;
+    private @Nullable Boolean isDeleted;
 
 }

@@ -8,7 +8,7 @@ import org.springframework.core.io.Resource;
 public interface ProfilePictureService {
     ProfilePicture create(UserCredential userCredential, MultipartFile multipartFile);
     Resource download(String id);
-    String deleteById(String id);
+    void deleteById(String id);
 
 
 }

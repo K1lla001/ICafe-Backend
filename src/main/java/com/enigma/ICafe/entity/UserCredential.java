@@ -1,10 +1,7 @@
 package com.enigma.ICafe.entity;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -36,5 +33,6 @@ public class UserCredential {
 
 
     @OneToOne(mappedBy = "user")
+    @ToString.Exclude
     private ProfilePicture profilePicture;
 }

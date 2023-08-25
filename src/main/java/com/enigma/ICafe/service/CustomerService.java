@@ -6,12 +6,15 @@ import com.enigma.ICafe.model.request.CustomerRequest;
 import com.enigma.ICafe.model.response.CustomerResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
 
 public interface CustomerService {
 
     Customer addCustomer(Customer customer);
 
     CustomerResponse updateCustomer(CustomerRequest customer);
+
+    CustomerResponse authenticationCustomer(Authentication authentication);
 
     String findEmailById(String id);
 

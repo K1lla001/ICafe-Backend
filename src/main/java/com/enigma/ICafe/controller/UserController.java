@@ -31,7 +31,7 @@ public class UserController {
     }
 
     @PutMapping(path = "/profile-picture")
-    public ResponseEntity<CommonResponse<FileResponse>> uploadProfilePicture(@RequestParam(name = "image")MultipartFile multipartFile){
+    public ResponseEntity<CommonResponse<FileResponse>> uploadProfilePicture(@RequestParam(name = "image") MultipartFile multipartFile){
         FileResponse fileResponse = userService.updateProfilePicture(multipartFile);
         return ResponseEntity.ok(
                 CommonResponse.<FileResponse>builder()

@@ -9,7 +9,6 @@ import com.enigma.ICafe.service.BaseFileService;
 import com.enigma.ICafe.service.ProfilePictureService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -60,11 +59,10 @@ public class ProfilePictureServiceImpl implements ProfilePictureService {
 
     @Override
     @Transactional(rollbackOn = Exception.class)
-    public String deleteById(String id) {
+    public void deleteById(String id) {
         ProfilePicture profilePicture = profilePictureRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Image not found!"));
         userSecurity.validateUserByEmail(profilePicture.getUser().getEmail());
         String path = profilePicture.getPath();
         profilePictureRepository.delete(profilePicture);
-        return baseFileService.delete(path);
     }
 }

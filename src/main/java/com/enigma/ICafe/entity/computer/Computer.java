@@ -51,6 +51,4 @@ public class Computer extends Auditable<String> {
     public void addAllComputerImage(List<ComputerImage> ComputerImages) {
         this.computerImages.addAll(ComputerImages);
     }
-
-
 }
